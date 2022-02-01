@@ -23,3 +23,28 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+function getImg(data, type, full, meta) {
+    if (data === 'GREEN') {
+        return '<img src="assets/img/icons8-check-mark-button-48.png" />';
+    } else {
+        return '<img src="assets/img/icons8-cross-mark-button-48.png" />';
+    }
+}
+$.ajax({
+    'url': "http://127.0.0.1:5000/fc2/api/images",
+    'method': "GET",
+    'contentType': 'application/json'
+}).done( function(data) {
+    $('#ciDatatablesSimple').dataTable( {
+        "aaData": data.imageDetails,
+        "columns": [
+            { "data": "imageTag" },
+            { "data": "description" },
+            { "data": "health", render:getImg},
+            { "data": "imagePushedAt" }
+        ]
+    })
+})
+
+
+
