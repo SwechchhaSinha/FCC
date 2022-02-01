@@ -11699,3 +11699,12 @@ body {
   font-size: 0.75rem;
   border-radius: 0.25rem !important;
 }
+
+.btn-custom {
+  margin: 0;
+  position: absolute;
+  top: 70%;
+  left: 30%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
