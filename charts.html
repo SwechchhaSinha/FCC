@@ -20,7 +20,12 @@
             div.dropdown-div select {
                 display: table-cell;
                 text-align: center;
-                margin-left: 3%;
+                margin-left: 1.25%;
+            }
+            div.dropdown-div button {
+                display: table-cell;
+                text-align: center;
+                margin-left: 1.25%;
             }
         </style>
     </head>
@@ -107,7 +112,7 @@
                             <div class="sb-sidenav-menu-heading">Addons</div>
                             <a class="nav-link" href="charts.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Ops
+                                Operations
                             </a>
                             <a class="nav-link" href="tables.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
@@ -124,10 +129,10 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Ops</h1>
+                        <h1 class="mt-4">Operations</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Ops</li>
+                            <li class="breadcrumb-item active">Operations</li>
                         </ol>
                         <div class="dropdown-div">
                             <select class="btn btn-primary select" name="fi" id="fi">
@@ -160,28 +165,30 @@
                                 <option value="5">Last 7 days</option>
                                 <option value="6">Custom</option>
                             </select>
+                            <button class="btn btn-success" type="button" onclick="SearchResults()">Search <i class="fas fa-search"></i></button>
                         </div>
+                        <span id="error" style="color:red;"></span>
                         <br>
                         <div class="card mb-4">
                             <div class="card-header">
-                                <i class="fas fa-align-left me-1"></i>
+                                <img class="me-1" style="width:40px;height:40px" src="./assets/img/splunk-logo.png">
                                 Splunk
                             </div>
-                            <div class="card-body"><span style="color:lightgray;">No results to display</span></div>
+                            <div class="card-body" id="splunk"><span style="color:lightgray;">No results to display</span></div>
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
-                                <i class="fas fa-tachometer-alt me-1"></i>
+                                <img class="me-1" style="width:40px;height:40px" src="./assets/img/grafana-logo.png">
                                 Grafana
                             </div>
-                            <div class="card-body"><span style="color:lightgray;">No results to display</span></div>
+                            <div class="card-body" id="grafana"><span style="color:lightgray;">No results to display</span></div>
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
-                                <i class="fas fa-exclamation-triangle me-1"></i>
+                                <img class="me-1" style="width:40px;height:40px" src="./assets/img/pd-logo.png">
                                 PagerDuty
                             </div>
-                            <div class="card-body"><span style="color:lightgray;">No results to display</span></div>
+                            <div class="card-body" id="pd"><span style="color:lightgray;">No results to display</span></div>
                         </div>
                     </div>
                 </main>
@@ -203,4 +210,40 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
     </body>
+    <script>
+        var url="";
+        function SearchResults() {
+            document.getElementById("splunk").innerHTML = "<span style=\"color:lightgray;\">No results to display</span>";
+            document.getElementById("grafana").innerHTML = "<span style=\"color:lightgray;\">No results to display</span>";
+            document.getElementById("pd").innerHTML = "<span style=\"color:lightgray;\">No results to display</span>";
+            document.getElementById("error").innerHTML="";
+            //if all items selected
+            if(document.getElementById("fi").value != ""
+                && document.getElementById("fd").value != ""
+                && document.getElementById("service").value != ""
+                && document.getElementById("timeframe").value != "" ){
+
+                //api call
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open( "GET", url, false ); // false for synchronous request
+                xmlHttp.send( null );
+                var response = xmlHttp.responseText;
+                if('splunk' in response) {
+                    document.getElementById("splunk").innerHTML = response['splunk'];
+                }
+                if('grafana' in response) {
+                    document.getElementById("grafana").innerHTML = response['grafana'];
+                }
+                if('pd' in response) {
+                    document.getElementById("pd").innerHTML = response['pd'];
+                }
+            }
+            else{
+                document.getElementById("error").innerHTML = "Please select all parameters";
+                document.getElementById("splunk").innerHTML = "<span style=\"color:lightgray;\">No results to display</span>";
+                document.getElementById("grafana").innerHTML = "<span style=\"color:lightgray;\">No results to display</span>";
+                document.getElementById("pd").innerHTML = "<span style=\"color:lightgray;\">No results to display</span>";
+            }
+        }
+    </script>
 </html>
