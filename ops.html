@@ -144,6 +144,13 @@
                             </div>
                             <div class="card-body" id="pd"><span style="color:lightgray;">No results to display</span></div>
                         </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <img class="me-1" style="width:40px;height:40px" src="./assets/img/spinnaker-logo.png">
+                                Spinnaker
+                            </div>
+                            <div class="card-body" id="spinnaker"><span style="color:lightgray;">No results to display</span></div>
+                        </div>
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
@@ -170,6 +177,7 @@
             document.getElementById("splunk").innerHTML = "<span style=\"color:lightgray;\">No results to display</span>";
             document.getElementById("grafana").innerHTML = "<span style=\"color:lightgray;\">No results to display</span>";
             document.getElementById("pd").innerHTML = "<span style=\"color:lightgray;\">No results to display</span>";
+            document.getElementById("spinnaker").innerHTML = "<span style=\"color:lightgray;\">No results to display</span>";
             document.getElementById("error").innerHTML="";
             //if all items selected
             if(document.getElementById("fi").value != ""
@@ -191,12 +199,16 @@
                 if('pd' in response) {
                     document.getElementById("pd").innerHTML = response['pd'];
                 }
+                if('spinnaker' in response) {
+                    document.getElementById("spinnaker").innerHTML = response['spinnaker'];
+                }
             }
             else{
                 document.getElementById("error").innerHTML = "Please select all parameters";
                 document.getElementById("splunk").innerHTML = "<span style=\"color:lightgray;\">No results to display</span>";
                 document.getElementById("grafana").innerHTML = "<span style=\"color:lightgray;\">No results to display</span>";
                 document.getElementById("pd").innerHTML = "<span style=\"color:lightgray;\">No results to display</span>";
+                document.getElementById("spinnaker").innerHTML = "<span style=\"color:lightgray;\">No results to display</span>";
             }
         }
     </script>
