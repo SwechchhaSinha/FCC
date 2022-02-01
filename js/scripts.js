@@ -23,6 +23,7 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+
 function getImg(data, type, full, meta) {
     if (data === 'GREEN') {
         return '<img src="assets/img/icons8-check-mark-button-48.png" />';
@@ -46,5 +47,53 @@ $.ajax({
     })
 })
 
+$(document).ready(function(){
+    $('#teamselect').on('click', function() {
+        fetch('http://127.0.0.1:5000/fc2/api/teams')
+            .then(response => response.json())
+            .then(teams => {
+                console.log(teams.teams);
+                $('#teamselect').empty();
+                $.each(teams.teams, function (i, p) {
+                    $('#teamselect').append($('<option></option>').val(p).html(p));
+                });
+            });
+    });
 
+    $('#teamselect').on('change', function() {
+        fetch('http://127.0.0.1:5000/fc2/api/teams/services')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.services);
+                $('#serviceselect').empty();
+                $.each(data.services, function(i, p) {
+                    $('#serviceselect').append($('<option></option>').val(p).html(p));
+                });
+            });
 
+    });
+
+    function getImg(data, type, full, meta) {
+        if (data === 'GREEN') {
+            return '<img src="assets/img/icons8-check-mark-button-48.png" />';
+        } else {
+            return '<img src="assets/img/icons8-cross-mark-button-48.png" />';
+        }
+    }
+    $.ajax({
+        'url': "http://127.0.0.1:5000/fc2/api/images",
+        'method': "GET",
+        'contentType': 'application/json'
+    }).done( function(data) {
+        $('#ciDatatablesSimple').dataTable( {
+            "aaData": data.imageDetails,
+            "columns": [
+                { "data": "imageTag" },
+                { "data": "description" },
+                { "data": "health", render:getImg},
+                { "data": "imagePushedAt" }
+            ]
+        })
+    })
+
+});

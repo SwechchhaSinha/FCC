@@ -13,11 +13,12 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
+            <a class="navbar-brand ps-3" href="index.html">FCC</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -79,15 +80,15 @@
                                     <form class="form-inline">
                                         <div class="input-group">
                                             <div class="col-xl-4">
-                                                <label for="teams" class="breadcrumb-item active">Choose a team:</label>
-                                                <select class="form-select" id="teams" name="teams">
-                                                    <option value="CDP">CDP</option>
+                                                <label for="teamselect" class="breadcrumb-item active">Choose a team:</label>
+                                                <select class="form-select" id="teamselect" name="teams">
+                                                    <option disabled="disabled" selected></option>
                                                 </select>
                                             </div>
                                             <div class="col-xl-4">
-                                                <label for="service" class="breadcrumb-item active">Choose a service:</label>
-                                                <select class="form-select" id="service" name="service">
-                                                    <option value="qs">cdp-query-service</option>
+                                                <label for="serviceselect" class="breadcrumb-item active">Choose a service:</label>
+                                                <select class="form-select" id="serviceselect" name="service">
+                                                    <option disabled="disabled" selected></option>
                                                 </select>
                                             </div>
                                             <div class="col-xl-4">
