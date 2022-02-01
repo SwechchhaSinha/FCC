@@ -8,12 +8,27 @@
         <meta name="author" content="" />
         <title>Charts - SB Admin</title>
         <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <style>
+            div.dropdown-div {
+                display: table;
+                width: 100%;
+                table-layout: fixed;    /* For cells of equal size */
+            }
+            div.dropdown-div select {
+                display: table-cell;
+                text-align: center;
+                margin-left: 3%;
+            }
+        </style>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
+            <a class="navbar-brand ps-3" href="index.html">FCC<span style="font-size:0.3em;">(Falcon Command Center)</span>
+            </a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -92,7 +107,7 @@
                             <div class="sb-sidenav-menu-heading">Addons</div>
                             <a class="nav-link" href="charts.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
+                                Ops
                             </a>
                             <a class="nav-link" href="tables.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
@@ -109,47 +124,64 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Charts</h1>
+                        <h1 class="mt-4">Ops</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Charts</li>
+                            <li class="breadcrumb-item active">Ops</li>
                         </ol>
+                        <div class="dropdown-div">
+                            <select class="btn btn-primary select" name="fi" id="fi">
+                                <option value="" disabled selected>Falcon Instance (FI)</option>
+                                <option value="1">FI1</option>
+                                <option value="2">FI2</option>
+                                <option value="3">FI3</option>
+                                <option value="4">FI4</option>
+                            </select>
+                            <select class="btn btn-primary select" name="fd" id="fd">
+                                <option value="" disabled selected>Functional Domain (FD)</option>
+                                <option value="1">FI1</option>
+                                <option value="2">FI2</option>
+                                <option value="3">FI3</option>
+                                <option value="4">FI4</option>
+                            </select>
+                            <select class="btn btn-primary select" name="service" id="service">
+                                <option value="" disabled selected>Service</option>
+                                <option value="1">FI1</option>
+                                <option value="2">FI2</option>
+                                <option value="3">FI3</option>
+                                <option value="4">FI4</option>
+                            </select>
+                            <select class="btn btn-primary select" name="timeframe" id="timeframe">
+                                <option value="" disabled selected>Timeframe</option>
+                                <option value="1">Last 15 minutes</option>
+                                <option value="2">Last 30 minutes</option>
+                                <option value="3">Last 60 minutes</option>
+                                <option value="4">Last 24 hours</option>
+                                <option value="5">Last 7 days</option>
+                                <option value="6">Custom</option>
+                            </select>
+                        </div>
+                        <br>
                         <div class="card mb-4">
-                            <div class="card-body">
-                                Chart.js is a third party plugin that is used to generate the charts in this template. The charts below have been customized - for further customization options, please visit the official
-                                <a target="_blank" href="https://www.chartjs.org/docs/latest/">Chart.js documentation</a>
-                                .
+                            <div class="card-header">
+                                <i class="fas fa-align-left me-1"></i>
+                                Splunk
                             </div>
+                            <div class="card-body"><span style="color:lightgray;">No results to display</span></div>
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
-                                <i class="fas fa-chart-area me-1"></i>
-                                Area Chart Example
+                                <i class="fas fa-tachometer-alt me-1"></i>
+                                Grafana
                             </div>
-                            <div class="card-body"><canvas id="myAreaChart" width="100%" height="30"></canvas></div>
-                            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                            <div class="card-body"><span style="color:lightgray;">No results to display</span></div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-bar me-1"></i>
-                                        Bar Chart Example
-                                    </div>
-                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="50"></canvas></div>
-                                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-                                </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-exclamation-triangle me-1"></i>
+                                PagerDuty
                             </div>
-                            <div class="col-lg-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-pie me-1"></i>
-                                        Pie Chart Example
-                                    </div>
-                                    <div class="card-body"><canvas id="myPieChart" width="100%" height="50"></canvas></div>
-                                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-                                </div>
-                            </div>
+                            <div class="card-body"><span style="color:lightgray;">No results to display</span></div>
                         </div>
                     </div>
                 </main>
@@ -167,11 +199,8 @@
                 </footer>
             </div>
         </div>
+        <div></div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="assets/demo/chart-area-demo.js"></script>
-        <script src="assets/demo/chart-bar-demo.js"></script>
-        <script src="assets/demo/chart-pie-demo.js"></script>
     </body>
 </html>
