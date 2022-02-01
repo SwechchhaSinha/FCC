@@ -6,13 +6,4 @@ window.addEventListener('DOMContentLoaded', event => {
     if (datatablesSimple) {
         new simpleDatatables.DataTable(datatablesSimple);
     }
-    const ciDatatablesSimple = document.getElementById('ciDatatablesSimple');
-    if (ciDatatablesSimple) {
-        new simpleDatatables.DataTable(ciDatatablesSimple);
-    }
-
-    const cdDatatablesSimple = document.getElementById('cdDatatablesSimple');
-    if (cdDatatablesSimple) {
-        new simpleDatatables.DataTable(cdDatatablesSimple);
-    }
 });

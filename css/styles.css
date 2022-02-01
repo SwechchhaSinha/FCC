@@ -11701,10 +11701,19 @@ body {
 }
 
 .btn-custom {
-  margin: 0;
-  position: absolute;
-  top: 70%;
-  left: 30%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  margin-right:30px;
+}
+
+div.dropdown-div{
+  padding-bottom: 20px;
+}
+div.dropdown-div select {
+  display: table-cell;
+  text-align: center;
+  margin-left: 2%;
+}
+div.dropdown-div button {
+  display: table-cell;
+  text-align: center;
+  margin-left: 2%;
 }
