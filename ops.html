@@ -21,6 +21,7 @@
                 display: table-cell;
                 text-align: center;
                 margin-left: 1.25%;
+                max-width: 20%;
             }
             div.dropdown-div button {
                 display: table-cell;
@@ -61,16 +62,20 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <a class="nav-link" href="index.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
                                 Dashboard
                             </a>
                             <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-paper-plane"></i></div>
                                 CI/CD
                             </a>
                             <a class="nav-link" href="ops.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Operations
+                            </a>
+                            <a class="nav-link" href="falconstatus.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-traffic-light"></i></div>
+                                Falcon Status
                             </a>
                         </div>
                     </div>
@@ -91,33 +96,33 @@
                         <div class="dropdown-div">
                             <select class="btn btn-primary select" name="fi" id="fi">
                                 <option value="" disabled selected>Falcon Instance (FI)</option>
-                                <option value="1">FI1</option>
-                                <option value="2">FI2</option>
-                                <option value="3">FI3</option>
-                                <option value="4">FI4</option>
+                                <option value="dev1-uswest2">dev1-uswest2</option>
+                                <option value="test1-uswest2">test1-uswest2</option>
+                                <option value="perf2-uswest2">perf2-uswest2</option>
+                                <option value="aws-stage1-useast2">aws-stage1-useast2</option>
+                                <option value="aws-prod1-useast1">aws-prod1-useast1</option>
+                                <option value="aws-prod3-eucentral1">aws-prod3-eucentral1</option>
                             </select>
                             <select class="btn btn-primary select" name="fd" id="fd">
                                 <option value="" disabled selected>Functional Domain (FD)</option>
-                                <option value="1">FI1</option>
-                                <option value="2">FI2</option>
-                                <option value="3">FI3</option>
-                                <option value="4">FI4</option>
+                                <option value="cdp001">cdp001</option>
+                                <option value="cdp002">cdp002</option>
+                                <option value="cdp1">cdp1</option>
+                                <option value="cdp2">cdp2</option>
+                                <option value="cdp3">cdp3</option>
                             </select>
                             <select class="btn btn-primary select" name="service" id="service">
                                 <option value="" disabled selected>Service</option>
-                                <option value="1">FI1</option>
-                                <option value="2">FI2</option>
-                                <option value="3">FI3</option>
-                                <option value="4">FI4</option>
+                                <option value="cdp-query-service">cdp-query-service</option>
                             </select>
                             <select class="btn btn-primary select" name="timeframe" id="timeframe">
                                 <option value="" disabled selected>Timeframe</option>
-                                <option value="1">Last 15 minutes</option>
-                                <option value="2">Last 30 minutes</option>
-                                <option value="3">Last 60 minutes</option>
-                                <option value="4">Last 24 hours</option>
-                                <option value="5">Last 7 days</option>
-                                <option value="6">Custom</option>
+                                <option value="15m">Last 15 minutes</option>
+                                <option value="30m">Last 30 minutes</option>
+                                <option value="1h">Last 60 minutes</option>
+                                <option value="24h">Last 24 hours</option>
+                                <option value="7d">Last 7 days</option>
+                                <option value="1d">Custom</option>
                             </select>
                             <button class="btn btn-success" type="button" onclick="SearchResults()">Search <i class="fas fa-search"></i></button>
                         </div>
@@ -172,7 +177,20 @@
         <script src="js/scripts.js"></script>
     </body>
     <script>
-        var url="";
+        var url="http://localhost:5000/fc2/api/ops/";
+        var select = document.getElementById("service");
+        var xmlHttp1 = new XMLHttpRequest();
+        xmlHttp1.open( "GET", "http://localhost:5000/fc2/api/teams/services", false ); // false for synchronous request
+        xmlHttp1.send( null );
+        var response1 = xmlHttp1.responseText;
+        var options = (JSON.parse(response1))['services'];
+        for(var i = 0; i < options.length; i++) {
+            var opt = options[i];
+            var el = document.createElement("option");
+            el.textContent = opt;
+            el.value = opt;
+            select.appendChild(el);
+        }
         function SearchResults() {
             document.getElementById("splunk").innerHTML = "<span style=\"color:lightgray;\">No results to display</span>";
             document.getElementById("grafana").innerHTML = "<span style=\"color:lightgray;\">No results to display</span>";
@@ -187,20 +205,56 @@
 
                 //api call
                 var xmlHttp = new XMLHttpRequest();
-                xmlHttp.open( "GET", url, false ); // false for synchronous request
+                xmlHttp.open( "GET", url.concat("/",document.getElementById("fi").value,"/",document.getElementById("fd").value,"/",document.getElementById("timeframe").value), false ); // false for synchronous request
                 xmlHttp.send( null );
-                var response = xmlHttp.responseText;
-                if('splunk' in response) {
-                    document.getElementById("splunk").innerHTML = response['splunk'];
+                var response = JSON.parse(xmlHttp.responseText);
+                if('splunkLinks' in response) {
+                    document.getElementById("splunk").innerHTML = "";
+                    for (var i=0; i<response['splunkLinks'].length; i++){
+                        var createA = document.createElement('a');
+                        var createP = document.createElement('p');
+                        createA.setAttribute('href', response['splunkLinks'][i]);
+                        createA.setAttribute('target', "_blank");
+                        createA.innerText = response['splunkLinks'][i];
+                        document.getElementById("splunk").appendChild(createA);
+                        document.getElementById("splunk").appendChild(createP);
+                    }
                 }
-                if('grafana' in response) {
-                    document.getElementById("grafana").innerHTML = response['grafana'];
+                if('grafanaLinks' in response) {
+                    document.getElementById("grafana").innerHTML = "";
+                    for (var i=0; i<response['grafanaLinks'].length; i++){
+                        var createA = document.createElement('a');
+                        var createP = document.createElement('p');
+                        createA.setAttribute('href', response['grafanaLinks'][i]);
+                        createA.setAttribute('target', "_blank");
+                        createA.innerText = response['grafanaLinks'][i];
+                        document.getElementById("grafana").appendChild(createA);
+                        document.getElementById("grafana").appendChild(createP);
+                    }
                 }
-                if('pd' in response) {
-                    document.getElementById("pd").innerHTML = response['pd'];
+                if('pagerDuty' in response) {
+                    document.getElementById("pd").innerHTML = "";
+                    for (var i=0; i<response['pagerDuty'].length; i++){
+                        var createA = document.createElement('a');
+                        var createP = document.createElement('p');
+                        createA.setAttribute('href', response['pagerDuty'][i]);
+                        createA.setAttribute('target', "_blank");
+                        createA.innerText = response['pagerDuty'][i];
+                        document.getElementById("pd").appendChild(createA);
+                        document.getElementById("pd").appendChild(createP);
+                    }
                 }
                 if('spinnaker' in response) {
-                    document.getElementById("spinnaker").innerHTML = response['spinnaker'];
+                    document.getElementById("spinnaker").innerHTML = "";
+                    for (var i=0; i<response['spinnaker'].length; i++){
+                        var createA = document.createElement('a');
+                        var createP = document.createElement('p');
+                        createA.setAttribute('href', response['spinnaker'][i]);
+                        createA.setAttribute('target', "_blank");
+                        createA.innerText = response['spinnaker'][i];
+                        document.getElementById("spinnaker").appendChild(createA);
+                        document.getElementById("spinnaker").appendChild(createP);
+                    }
                 }
             }
             else{
