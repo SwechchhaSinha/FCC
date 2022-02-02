@@ -89,9 +89,9 @@ $(document).ready(function(){
 
         function getImg(data) {
             if (data === 'GREEN') {
-                return '<img src="../assets/img/icons8-check-mark-button-48.png" />';
+                return '<img src="assets/img/icons8-check-mark-button-48.png" />';
             } else {
-                return '<img src="../assets/img/icons8-cross-mark-button-48.png" />';
+                return '<img src="assets/img/icons8-cross-mark-button-48.png" />';
             }
         }
     });
