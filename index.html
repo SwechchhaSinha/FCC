@@ -7,6 +7,8 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Dashboard - SB Admin</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
@@ -14,7 +16,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">FalconCommandCenter</a>
+            <a class="navbar-brand ps-3" href="index.html">FCC</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -65,10 +67,44 @@
             <div id="layoutSidenav_content">
                 <main>
 
-                    <div class="container-fluid px-4">
-                        <img class="mb-sm-1 " style="max-width: 20rem" src="assets/img/logo.png" />
+                    <div class="container-fluid px-4" style=" background-color: #7da2c7;">
+                        <img style="max-width: 8rem;margin: 2rem;margin-bottom: 7rem;margin-top: 5rem;" src="assets/img/logo.png">
+                        <img src="assets/img/tt.png" style="/* vertical-align: unset; */">
                     </div>
-                </main>
+                    <div class="row"   style=" margin-top: 5rem;"
+                    >
+
+                        <div class="col-xl-3 col-md-6" style="
+    margin-left: 12rem;
+">
+                            <div class="card" style="width: 25rem;">
+                                <img src="assets/img/download.png" class="card-img-top" alt="..." style="height: 250px">
+                                <div class="card-body">
+                                    <h5 class="card-title">CI/CD</h5>
+                                    <p class="card-text">View build and deployment details for all your services in every environment at one go.</p>
+                                    <a href="ops.html" class="btn btn-primary">View now</a>
+                                </div>
+
+                            </div>                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card" style="width: 27rem;">
+                                <img src="assets/img/tom.jpg" class="card-img-top" alt="..." style="height: 250px">
+                                <div class="card-body">
+                                    <h5 class="card-title">Operations</h5>
+                                    <p clas1s="card-text">Find all utility links at your fingertip with just a click. <br>Any team. Any service. Any time duration.</p>
+                                    <a href="ops.html" class="btn btn-primary">View now</a>
+                                </div>
+                            </div>                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card" style="width: 25rem;">
+                                <img src="assets/img/img.png" class="card-img-top" alt="..." style="height: 250px">
+                                <div class="card-body">
+                                    <h5 class="card-title">Falcon Status</h5>
+                                    <p class="card-text">Want to know about the current status of Falcon? We got you covered.</p>
+                                    <a href="falconstatus.html" class="btn btn-primary">View now</a>
+                                </div>
+                            </div>                        </div>
+                    </div>                </main>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
