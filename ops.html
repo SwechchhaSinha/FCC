@@ -21,7 +21,7 @@
                 display: table-cell;
                 text-align: center;
                 margin-left: 1.25%;
-                max-width: 20%;
+                max-width: 15%;
             }
             div.dropdown-div button {
                 display: table-cell;
@@ -107,6 +107,9 @@
                                 <option value="cdp2">cdp2</option>
                                 <option value="cdp3">cdp3</option>
                             </select>
+                            <select class="btn btn-primary select" name="teams" id="teams">
+                                <option value="" disabled selected>Team</option>
+                            </select>
                             <select class="btn btn-primary select" name="service" id="service">
                                 <option value="" disabled selected>Service</option>
                                 <option value="cdp-query-service">cdp-query-service</option>
@@ -186,6 +189,19 @@
             el.textContent = opt;
             el.value = opt;
             select.appendChild(el);
+        }
+        var select2 = document.getElementById("teams");
+        var xmlHttp2 = new XMLHttpRequest();
+        xmlHttp2.open( "GET", "http://localhost:5000/fc2/api/teams", false ); // false for synchronous request
+        xmlHttp2.send( null );
+        var response2 = xmlHttp2.responseText;
+        var options2 = (JSON.parse(response2))['teams'];
+        for(var i = 0; i < options2.length; i++) {
+            var opt = options2[i];
+            var el = document.createElement("option");
+            el.textContent = opt;
+            el.value = opt;
+            select2.appendChild(el);
         }
         function SearchResults() {
             document.getElementById("splunk").innerHTML = "<span style=\"color:lightgray;\">No results to display</span>";
